@@ -17,7 +17,7 @@ jobs:
         shell: bash
         run: |
           set -e
-          ZIP="$(find . -maxdepth 1 -type f -name '*.zip' | head -n 1)"
+          ZIP="PoolHelperPro-GitHub-build-final2.zip"
           test -n "$ZIP"
           rm -rf extracted
           mkdir -p extracted
