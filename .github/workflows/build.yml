@@ -19,6 +19,7 @@ jobs:
           set -e
           ZIP="$(find . -maxdepth 1 -type f -name '*.zip' | head -n 1)"
           test -n "$ZIP"
+          rm -rf extracted
           mkdir -p extracted
           unzip -q "$ZIP" -d extracted
           ROOT="$(find extracted -name settings.gradle -type f -print -quit | xargs dirname)"
@@ -31,10 +32,17 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Install Android SDK
+      - name: Install Android SDK packages
+        shell: bash
         run: |
-          yes | sdkmanager --licenses || true
-          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+          set -e
+          SDKMANAGER="${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager"
+          if [ ! -x "$SDKMANAGER" ]; then
+            SDKMANAGER="$(command -v sdkmanager || true)"
+          fi
+          test -n "$SDKMANAGER"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
 
       - name: Set up Gradle 8.7
         uses: gradle/actions/setup-gradle@v4
