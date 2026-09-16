@@ -17,7 +17,7 @@ jobs:
         shell: bash
         run: |
           set -e
-          ZIP="PoolHelperPro-Overlay-FINAL.zip"
+          ZIP="PoolHelperPro-Overlay-FIXED-3.zip"
           test -n "$ZIP"
           rm -rf extracted
           mkdir -p extracted
