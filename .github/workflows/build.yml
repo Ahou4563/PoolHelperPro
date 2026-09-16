@@ -17,7 +17,7 @@ jobs:
         shell: bash
         run: |
           set -e
-          ZIP="PoolHelperPro-GitHub-build-final2.zip"
+          ZIP="PoolHelperPro-Overlay-FINAL.zip"
           test -n "$ZIP"
           rm -rf extracted
           mkdir -p extracted
